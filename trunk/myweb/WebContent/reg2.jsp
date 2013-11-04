@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<form action="/reg">
+<form action="reg">
 	  帳號:<input id="userid" name="userid" type="text" value=""/>
 	<br/>
 	  密碼:<input id="pw1" name="pw1" type="text" value=""/> 
