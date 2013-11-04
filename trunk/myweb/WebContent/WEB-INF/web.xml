@@ -43,4 +43,14 @@
     <servlet-name>RegServlet</servlet-name>
     <url-pattern>/reg</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddPostServlet</display-name>
+    <servlet-name>AddPostServlet</servlet-name>
+    <servlet-class>com.tom.AddPostServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddPostServlet</servlet-name>
+    <url-pattern>/addpost</url-pattern>
+  </servlet-mapping>
 </web-app>
