@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.mysql.jdbc.Driver;
 
@@ -40,18 +41,25 @@ public class RegServlet extends HttpServlet {
 		String email = null;
 		if (request.getParameter("userid")!=null){
 			userid = request.getParameter("userid");
+			String nickname = request.getParameter("nickname");
 			pw1 = request.getParameter("pw1");
 			pw2 = request.getParameter("pw2");
 			email = request.getParameter("email");
 			
-			Member m = new Member(userid, pw1, pw2, email);
+			Member m = new Member(userid, nickname, pw1, pw2, email);
+			HttpSession session = request.getSession();
+			session.setAttribute("m", m);
+			
 			if (m.validate()){
-				// 註冊成功
-				
+				// 註冊成功 , Forward法
+//				request.getRequestDispatcher("success.jsp")
+//					.forward(request, response);
+				// 註冊成功, Redirect法
+				response.sendRedirect("success.jsp");
 				
 			}else{
 				// 註冊失敗
-				
+				response.sendRedirect("reg2.jsp");
 				
 			}
 			

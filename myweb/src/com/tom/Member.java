@@ -2,6 +2,7 @@ package com.tom;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -9,15 +10,27 @@ import com.mysql.jdbc.Driver;
 
 public class Member {
 	String userid;
+	String nickname;
 	String pw1;
 	String pw2;
 	String email;
 	private String useridMessage;
 	private String pwMessage;
 	private String emailMessage;
+	private String nicknameMessage;
 	
 	public Member(){
 		
+	}
+
+	public Member(String userid, String nickname, String pw1, String pw2,
+			String email) {
+		super();
+		this.userid = userid;
+		this.nickname = nickname;
+		this.pw1 = pw1;
+		this.pw2 = pw2;
+		this.email = email;
 	}
 
 	public Member(String userid, String pw1, String pw2, String email) {
@@ -34,6 +47,10 @@ public class Member {
 			valid = false;
 			useridMessage = "使用者帳號長度不符合";
 		}
+		if (nickname.length()<6 || nickname.length()>20){
+			valid = false;
+			nicknameMessage = "暱稱長度不符合";
+		}
 		if (!pw1.equals(pw2)){
 			valid = false;
 			pwMessage = "密碼不符合";
@@ -43,23 +60,43 @@ public class Member {
 			emailMessage = "電子郵件格式錯誤";
 		}
 		if (valid){
-			//1
+//			saveOld();
 			try {
 				DriverManager.registerDriver(new Driver());
-				//Class.forName("com.mysql.jdbc.Driver");
 				Connection conn = DriverManager.getConnection(
 					"jdbc:mysql://j.snpy.org/j102", "jstu", "abc123");
-				Statement stmt = conn.createStatement();
-				String sql = "Insert into users(id, password, email) values ('"+userid+"','"+pw1+"','"+email+"')";
-				System.out.println(sql);
-				int rowCount = stmt.executeUpdate(sql);
-				System.out.println(rowCount);
+				String sql = "INSERT INTO users(id, nickname, password, email) values(?,?,?,?)";
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, userid);
+				pstmt.setString(2, nickname);
+				pstmt.setString(3, pw1);
+				pstmt.setString(4, email);
+				int rowCount = pstmt.executeUpdate();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
 		}
 		return valid;
+	}
+
+	private void saveOld() {
+		//1
+		try {
+			DriverManager.registerDriver(new Driver());
+			//Class.forName("com.mysql.jdbc.Driver");
+			Connection conn = DriverManager.getConnection(
+				"jdbc:mysql://j.snpy.org/j102", "jstu", "abc123");
+			Statement stmt = conn.createStatement();
+			String sql = "Insert into users(id, nickname, password, email) values ('"+userid+"','"+nickname+"','"+pw1+"','"+email+"')";
+			System.out.println(sql);
+			int rowCount = stmt.executeUpdate(sql);
+			System.out.println(rowCount);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public String getUserid() {
@@ -116,6 +153,22 @@ public class Member {
 
 	public void setEmailMessage(String emailMessage) {
 		this.emailMessage = emailMessage;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+	public String getNicknameMessage() {
+		return nicknameMessage;
+	}
+
+	public void setNicknameMessage(String nicknameMessage) {
+		this.nicknameMessage = nicknameMessage;
 	}
 	
 	
