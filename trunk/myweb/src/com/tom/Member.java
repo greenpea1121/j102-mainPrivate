@@ -20,6 +20,7 @@ public class Member {
 	private String pwMessage;
 	private String emailMessage;
 	private String nicknameMessage;
+	String loginMessage;
 	private boolean login;
 
 	public Member(String userid, String pw1) {
@@ -58,7 +59,7 @@ public class Member {
 			DriverManager.registerDriver(new Driver());
 			conn = DriverManager.getConnection(
 				"jdbc:mysql://j.snpy.org/j102", "jstu", "abc123");
-			String sql = "select * from users where userid=? and password=?";
+			String sql = "select * from users where id=? and password=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userid);
 			pstmt.setString(2, pw1);
@@ -67,6 +68,8 @@ public class Member {
 				login = true;
 				nickname = rs.getString("nickname");
 				email = rs.getString("email");
+			}else{
+				loginMessage = "登入失敗";
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -82,8 +85,6 @@ public class Member {
 				}
 			}
 		}
-
-		
 		return login;
 	}
 	
@@ -223,6 +224,14 @@ public class Member {
 
 	public void setLogin(boolean login) {
 		this.login = login;
+	}
+
+	public String getLoginMessage() {
+		return loginMessage;
+	}
+
+	public void setLoginMessage(String loginMessage) {
+		this.loginMessage = loginMessage;
 	}
 	
 	
