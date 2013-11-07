@@ -3,8 +3,10 @@ package com.tom;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import com.mysql.jdbc.Driver;
 
@@ -18,7 +20,14 @@ public class Member {
 	private String pwMessage;
 	private String emailMessage;
 	private String nicknameMessage;
-	
+	private boolean login;
+
+	public Member(String userid, String pw1) {
+		super();
+		this.userid = userid;
+		this.pw1 = pw1;
+	}
+
 	public Member(){
 		
 	}
@@ -41,6 +50,43 @@ public class Member {
 		this.email = email;
 	}
 
+	public boolean login(){
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		login = false;
+		try {
+			DriverManager.registerDriver(new Driver());
+			conn = DriverManager.getConnection(
+				"jdbc:mysql://j.snpy.org/j102", "jstu", "abc123");
+			String sql = "select * from users where userid=? and password=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userid);
+			pstmt.setString(2, pw1);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()){
+				login = true;
+				nickname = rs.getString("nickname");
+				email = rs.getString("email");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			if (conn!=null){
+				try {
+					pstmt.close();
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+
+		
+		return login;
+	}
+	
 	public boolean validate(){
 		boolean valid = true;
 		if (userid.length()<4 || userid.length()>20){
@@ -169,6 +215,14 @@ public class Member {
 
 	public void setNicknameMessage(String nicknameMessage) {
 		this.nicknameMessage = nicknameMessage;
+	}
+
+	public boolean isLogin() {
+		return login;
+	}
+
+	public void setLogin(boolean login) {
+		this.login = login;
 	}
 	
 	
