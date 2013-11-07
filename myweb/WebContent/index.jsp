@@ -6,16 +6,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>首頁</title>
 </head>
 <body>
-<form action="login" method="POST">
-帳號:<input type="text" name="userid" value="${member.userid }" />
-</br>
-密碼:<input type="text" name="pw" value="${member.pw1 }"/>
-</br>
-${member.loginMessage }
-<input type="submit" value="登入" />
-</form>
+這是首頁
+<%=session.getId() %>
+
+<a href="logout.jsp">登出</a>
 </body>
 </html>
