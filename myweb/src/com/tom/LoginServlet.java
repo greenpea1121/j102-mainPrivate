@@ -1,10 +1,12 @@
 package com.tom;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class LoginServlet
@@ -34,6 +36,10 @@ public class LoginServlet extends HttpServlet {
 		String userid = request.getParameter("userid");
 		String pw = request.getParameter("pw");
 		Member m = new Member(userid, pw);
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("member", m);
+		
 		if (m.login()){
 			response.sendRedirect("login_success.jsp");
 		}else{
@@ -42,3 +48,11 @@ public class LoginServlet extends HttpServlet {
 	}
 
 }
+
+
+
+
+
+
+
+
