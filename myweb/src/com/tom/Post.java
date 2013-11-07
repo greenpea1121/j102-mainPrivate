@@ -3,19 +3,32 @@ package com.tom;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.mysql.jdbc.Driver;
 
 public class Post {
+	int id;
 	String userid;
 	String nickname;
 	String title;
 	String content;
+	ArrayList<Post> allPosts;
+	
 	public Post(){
 		
 	}
 	
+	public Post(int id, String userid, String nickname, String title) {
+		super();
+		this.id = id;
+		this.userid = userid;
+		this.nickname = nickname;
+		this.title = title;
+	}
+
 	public Post(String userid, String nickname, String title, String content) {
 		super();
 		this.userid = userid;
@@ -24,6 +37,32 @@ public class Post {
 		this.content = content;
 	}
 
+	public ArrayList<Post> getAllPosts(){
+		if (allPosts==null)
+			allPosts = new ArrayList<Post>();
+		try {
+			DriverManager.registerDriver(new Driver());
+			Connection conn = DriverManager.getConnection("jdbc:mysql://j.snpy.org/j102?useUnicode=true&characterEncoding=UTF-8",
+					"jstu", "abc123");
+			String sql = "select id,userid,nickname,title from guestbook";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()){
+				int id = rs.getInt("id");
+				String userid = rs.getString("userid");
+				String nickname = rs.getString("nickname");
+				String title = rs.getString("title");
+				Post p = new Post(id, userid, nickname, title);
+				allPosts.add(p);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return allPosts;
+	}
+	
 	public boolean save(){
 		boolean saved = false;
 		try {
@@ -70,6 +109,18 @@ public class Post {
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setAllPosts(ArrayList<Post> allPosts) {
+		this.allPosts = allPosts;
 	}
 	
 }

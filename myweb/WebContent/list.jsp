@@ -14,22 +14,35 @@
 <body>
 <%
 DriverManager.registerDriver(new Driver());
-Connection conn = DriverManager.getConnection("jdbc:mysql://j.snpy.org/j102",
+Connection conn = DriverManager.getConnection("jdbc:mysql://j.snpy.org/j102?useUnicode=true&characterEncoding=UTF-8",
 		"jstu", "abc123");
-String sql = "select userid,nickname,title from guestbook";
+String sql = "select id,userid,nickname,title from guestbook";
 PreparedStatement pstmt = conn.prepareStatement(sql);
 ResultSet rs = pstmt.executeQuery();
+%>
+<table border="1">
+<%
+
 while (rs.next()) {
+	%>
+	<TR>
+	<%
+	int id = rs.getInt("id");
 	String userid = rs.getString("userid");
 	String nickname = rs.getString("nickname");
 	String title = rs.getString("title");
-	
-	
-	out.println("</br>");
+	%>
+		<TD><%=id %></TD>
+		<TD><%=userid %></TD>
+		<TD><%=nickname %></TD>
+		<TD><%=title %></TD>
+		<TD><a href="delete_post.jsp?id=<%=id %>">刪除</a></TD>
+	</TR>
+	<%
 }
 
 %>
-
+</table>
 
 </body>
 </html>
