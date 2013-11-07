@@ -37,9 +37,27 @@ public class Post {
 		this.content = content;
 	}
 
+	public int delete(int id){
+		int rowCount = 0;
+		try {
+			DriverManager.registerDriver(new Driver());
+			Connection conn = DriverManager.getConnection("jdbc:mysql://j.snpy.org/j102?useUnicode=true&characterEncoding=UTF-8",
+					"jstu2", "abc123");
+			String sql = "delete from guestbook where id=?";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			rowCount = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rowCount;
+	}
+	
 	public ArrayList<Post> getAllPosts(){
 		if (allPosts==null)
 			allPosts = new ArrayList<Post>();
+		allPosts.clear();
 		try {
 			DriverManager.registerDriver(new Driver());
 			Connection conn = DriverManager.getConnection("jdbc:mysql://j.snpy.org/j102?useUnicode=true&characterEncoding=UTF-8",
