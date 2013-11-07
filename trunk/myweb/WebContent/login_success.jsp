@@ -9,5 +9,6 @@
 </head>
 <body>
 ${member.nickname },您好,登入成功
+<a href="index.jsp">到首頁</a>
 </body>
 </html>
