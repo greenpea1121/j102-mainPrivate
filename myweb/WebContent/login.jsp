@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<jsp:useBean id="member" class="com.tom.Member" scope="session"></jsp:useBean>
+<jsp:useBean id="m" class="com.tom.Member" scope="session"></jsp:useBean>
 <%
-if (member.isLogin()){
+if (m.isLogin()){
 	response.sendRedirect("index.jsp");
 }
 
@@ -15,9 +15,9 @@ if (member.isLogin()){
 </head>
 <body>
 <form action="login" method="POST">
-帳號:<input type="text" name="userid" value="${member.userid }" />
+帳號:<input type="text" name="userid" value="${m.userid }" />
 </br>
-密碼:<input type="text" name="pw" value="${member.pw1 }"/>
+密碼:<input type="text" name="pw" value="${m.pw1 }"/>
 </br>
 ${member.loginMessage }
 <input type="submit" value="登入" />
