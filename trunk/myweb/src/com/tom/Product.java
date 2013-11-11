@@ -17,7 +17,7 @@ public class Product {
 	int stock;
 	String pic;
 	ArrayList<Product> products = new ArrayList<Product>();
-	
+
 	public Product(int id, String name, String desc, int price, int stock,
 			String pic) {
 		super();
@@ -29,8 +29,8 @@ public class Product {
 		this.pic = pic;
 	}
 
-	public Product(){
-		
+	public Product() {
+
 	}
 
 	public int getId() {
@@ -38,6 +38,19 @@ public class Product {
 	}
 
 	public void setId(int id) {
+		System.out.println("setId called:" + id);
+		if (products.size() == 0)
+			products = getProducts();
+		for (Product p : products) {
+			if (p.id == id) {
+				this.name = p.name;
+				this.desc = p.desc;
+				this.price = p.price;
+				this.stock = p.stock;
+				this.pic = p.pic;
+				break;
+			}
+		}
 		this.id = id;
 	}
 
@@ -123,5 +136,5 @@ public class Product {
 	public void setProducts(ArrayList<Product> products) {
 		this.products = products;
 	}
-	
+
 }
