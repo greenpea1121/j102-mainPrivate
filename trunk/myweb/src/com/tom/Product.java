@@ -16,9 +16,7 @@ public class Product {
 	int price;
 	int stock;
 	String pic;
-	ArrayList<Product> products;
-	
-	
+	ArrayList<Product> products = new ArrayList<Product>();
 	
 	public Product(int id, String name, String desc, int price, int stock,
 			String pic) {
