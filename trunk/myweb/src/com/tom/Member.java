@@ -244,6 +244,7 @@ public class Member {
 
 	public void setReferer(String referer) {
 		this.referer = referer;
+		System.out.println("setReferer:"+referer);
 	}
 	
 	
