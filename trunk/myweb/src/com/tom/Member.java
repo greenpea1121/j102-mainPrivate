@@ -22,6 +22,7 @@ public class Member {
 	private String nicknameMessage;
 	String loginMessage;
 	private boolean login;
+	String referer;
 
 	public Member(String userid, String pw1) {
 		super();
@@ -232,6 +233,17 @@ public class Member {
 
 	public void setLoginMessage(String loginMessage) {
 		this.loginMessage = loginMessage;
+	}
+
+	public String getReferer() {
+		if (referer!=null && referer.substring(referer.lastIndexOf("/")).equals("/index.jsp")){
+			referer = null;
+		}
+		return referer;
+	}
+
+	public void setReferer(String referer) {
+		this.referer = referer;
 	}
 	
 	

@@ -1,7 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:useBean id="m" class="com.tom.Member" scope="session"></jsp:useBean>
+<%=request.getHeader("Referer") %>
 <%
+m.setReferer(request.getHeader("Referer"));
+//String referer = request.getHeader("Referer");
+//if (referer!=null){
+//	session.setAttribute("login_referer", referer);
+//}
+
 if (m.isLogin()){
 	response.sendRedirect("index.jsp");
 }

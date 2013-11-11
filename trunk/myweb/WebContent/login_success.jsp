@@ -8,7 +8,18 @@
 <title>login_success</title>
 </head>
 <body>
-${m.nickname },您好,登入成功
+${m.nickname },您好,登入成功 
+<%
+//String referer = (String)session.getAttribute("login_referer");
+//if (referer!=null && !referer.substring(referer.lastIndexOf("/")).equals("/index.jsp")){
+if (m.getReferer()!=null){
+	%>
+	<a href="${m.referer }">回到上一個功能</a>	
+	<%
+	m.setReferer(null);
+	//session.removeAttribute("login_referer");
+}
+%>
 <a href="index.jsp">到首頁</a>
 </body>
 </html>
