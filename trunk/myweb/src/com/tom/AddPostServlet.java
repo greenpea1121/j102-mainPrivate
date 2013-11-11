@@ -27,13 +27,16 @@ public class AddPostServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String userid = request.getParameter("userid");
-		String nickname = request.getParameter("nickname");
+//		String userid = request.getParameter("userid");
+//		String nickname = request.getParameter("nickname");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-		
-		Post p = new Post(userid, nickname, title, content);
 		HttpSession session = request.getSession();
+
+		Member m = (Member) session.getAttribute("m");
+
+		Post p = new Post(m.getUserid(), m.getNickname(), title, content);
+		
 		session.setAttribute("p", p);
 		boolean saved = p.save();
 		if (saved){
