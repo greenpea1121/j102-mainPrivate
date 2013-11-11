@@ -22,6 +22,7 @@
 	<ul>
 		<li><a href="add_post.jsp">新增留言(add_post.jsp)</a></li>
 		<li><a href="list2.jsp">留言清單(list2.jsp)</a></li>
+		<li><a href="product_list.jsp">產品清單瀏覽</a></li>
 	</ul>
 </body>
 </html>
