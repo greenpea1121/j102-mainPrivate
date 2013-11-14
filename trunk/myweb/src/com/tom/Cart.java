@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Cart {
 	String userid;
 	int total;
-	ArrayList<Item> items;
+	ArrayList<Item> items = new ArrayList<Item>();
 	
 	public Cart(){
 		
