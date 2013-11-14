@@ -62,7 +62,6 @@ public class MemberController extends HttpServlet {
 			}
 		}
 		
-		
 	}
 
 	/**
