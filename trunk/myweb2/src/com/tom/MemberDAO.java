@@ -82,7 +82,7 @@ public class MemberDAO {
 	}
 	
 	public int update(Member m){
-		String sql = "update users set(nickname=?,pw=?,email=?) where id=?";
+		String sql = "update users set nickname=?,password=?,email=?  where id=?";
 		int rowCount = 0;
 		try {
 			PreparedStatement pstmt = getConnection().prepareStatement(sql);
@@ -98,6 +98,26 @@ public class MemberDAO {
 		return rowCount;
 	}
 
+	public Member getMemberById(String userid){
+		Member member = null;
+		String sql = "select * from users where id=?";
+		int rowCount = 0;
+		try {
+			PreparedStatement pstmt = getConnection().prepareStatement(sql);
+			pstmt.setString(1, userid);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()){
+				member = new Member(rs.getString("id")
+						, rs.getString("nickname")
+						, rs.getString("password")
+						, rs.getString("email"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return member;
+	}
 	
 	public static void main(String[] args){
 //		testgetAll();

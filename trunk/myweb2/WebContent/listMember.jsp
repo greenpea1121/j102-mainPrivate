@@ -16,6 +16,9 @@
 			<td>${m.nickname }</td>
 			<td>${m.pw }</td>
 			<td>${m.email }</td>
+			<td>
+			<a href="MemberController?userid=${m.userid }&action=edit">修改</a>
+			</td>
 		</tr>
 	</c:forEach>
 	</table>

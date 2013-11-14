@@ -16,6 +16,7 @@ public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String LIST_MEMBER = "listMember.jsp";
 	private static final String ADD_MEMBER = "member.jsp";
+	private static final String EDIT_MEMBER = "member_edit.jsp";
 	
 	
 	
@@ -61,6 +62,13 @@ public class MemberController extends HttpServlet {
 					dispatcher.forward(request, response);
 			}
 		}
+		if (action.equalsIgnoreCase("edit")){
+			Member m = dao.getMemberById(request.getParameter("userid"));
+			request.setAttribute("m", m);
+			RequestDispatcher dispatcher = 
+					request.getRequestDispatcher(EDIT_MEMBER);
+				dispatcher.forward(request, response);
+		}
 		
 	}
 
@@ -68,7 +76,20 @@ public class MemberController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		String action = request.getParameter("action");
+		if (action.equalsIgnoreCase("edit")){
+			Member m = new Member(
+				request.getParameter("userid"),
+				request.getParameter("nickname"),
+				request.getParameter("pw"),
+				request.getParameter("email"));
+			dao.update(m);
+			List<Member> members = dao.getAll();
+			request.setAttribute("members", members);
+			RequestDispatcher dispatcher = 
+					request.getRequestDispatcher(LIST_MEMBER);
+				dispatcher.forward(request, response);
+		}
 	}
 
 }
