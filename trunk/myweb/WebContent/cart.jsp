@@ -21,5 +21,8 @@
 </tr>
 </c:forEach>
 </table>
+合計: ${cart.total }
+<p><a href="">回上一個頁面</a></p>
+<p><a href="product_list.jsp">回產品清單</a></p>
 </body>
 </html>

@@ -11,7 +11,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%=cart.getItems().size() %>
+<p>
+<a href="cart.jsp">購物車</a>(${cart.total})<%=cart.getItems().size() %>
+</p>
 <table border="1">
 <c:forEach items="${prod.products }" var="p">
 <TR>
