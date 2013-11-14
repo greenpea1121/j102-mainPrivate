@@ -8,6 +8,7 @@
 <title>listMember.jsp</title>
 </head>
 <body>
+<a href="MemberController?action=addMember">Add Member</a>
 	<table border="1">
 	<c:forEach items="${members }" var="m">
 		<tr>
