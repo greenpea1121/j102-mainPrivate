@@ -12,7 +12,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%=cart.getItems().size() %>
+<p>
+<a href="cart.jsp">購物車</a>(${cart.total})<%=cart.getItems().size() %>
+</p>
 
 		<table border="1" cellpadding="1" cellspacing="1" style="width: 600px;">
 			<tbody>
@@ -31,14 +33,14 @@
 						${prod.price }
 						<form action="add_cart.jsp">
 							<input type="hidden" name="id" value="${prod.id }" />
-							<input type="text" name="q" value="1"/>
-							<input type="submit" />
+							數量:<input type="text" name="q" value="1"/>
+							<input type="submit" value="加入購物車"/>
 						</form>
 						</td>
 				</tr>
 			</tbody>
 		</table>
-
+<p><a href="product_list.jsp">回產品清單</a></p>
 </body>
 </html>
 

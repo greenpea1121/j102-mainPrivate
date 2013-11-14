@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Cart {
 	String userid;
-	int total;
+	int total = 0;
 	ArrayList<Item> items = new ArrayList<Item>();
 	
 	public Cart(){
@@ -18,6 +18,10 @@ public class Cart {
 		this.userid = userid;
 	}
 	public int getTotal() {
+		total = 0;
+		for (Item i : items){
+			total+= i.getPrice()*i.getQty();
+		}
 		return total;
 	}
 	public void setTotal(int total) {

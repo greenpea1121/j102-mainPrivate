@@ -19,10 +19,11 @@ cart.getItems().add(item);
 <title>Insert title here</title>
 </head>
 <body>
-<%=cart.getItems().size() %>
-
-想放入購物車的品項:
-<table>
+<p>
+<a href="cart.jsp">購物車</a>(${cart.total})<%=cart.getItems().size() %>
+</p>
+放入購物車的品項:
+<table border=1>
 <tr>
 	<td>${prod.id }</td>
 	<td> ${prod.name }</td>
@@ -31,5 +32,7 @@ cart.getItems().add(item);
 	<td>${prod.price*param.q }</td>
 </tr>
 </table>
+<p><a href="">回上一個頁面</a></p>
+<p><a href="product_list.jsp">回產品清單</a></p>
 </body>
 </html>
