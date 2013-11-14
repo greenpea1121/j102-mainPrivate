@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:useBean id="prod" class="com.tom.Product" scope="session"></jsp:useBean>
+<jsp:useBean id="cart" class="com.tom.Cart" scope="session"></jsp:useBean>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set target="${prod }" property="id" value="${param.id }"></c:set>
  
@@ -26,10 +27,19 @@ ${param.id }
 				</tr>
 				<tr>
 					<td>
-						${prod.price }</td>
+						${prod.price }
+						<form action="add_cart.jsp">
+							<input type="hidden" name="id" value="${prod.id }" />
+							<input type="text" name="q" value="1"/>
+							<input type="submit" />
+						</form>
+						</td>
 				</tr>
 			</tbody>
 		</table>
 
 </body>
 </html>
+
+
+
