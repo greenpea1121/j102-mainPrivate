@@ -64,7 +64,7 @@ public class MemberDAO {
 	}
 	
 	public int add(Member m){
-		String sql = "insert into users(id,nickname,pw,email) values (?,?,?,?)";
+		String sql = "insert into users(id,nickname,password,email) values (?,?,?,?)";
 		int rowCount = 0;
 		try {
 			PreparedStatement pstmt = getConnection().prepareStatement(sql);
@@ -73,6 +73,7 @@ public class MemberDAO {
 			pstmt.setString(3, m.getPw());
 			pstmt.setString(4, m.getEmail());
 			rowCount = pstmt.executeUpdate();
+			System.out.println(rowCount);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

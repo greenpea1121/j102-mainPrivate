@@ -7,7 +7,8 @@
 <title>member.jsp</title>
 </head>
 <body>
-<form action="">
+<form action="MemberController">
+	<input type="hidden" name="action" value="addMember" />
 	帳號: <input type="text" name="userid" value=""/></br> 
 	暱稱: <input type="text" name="nickname" value=""/></br> 
 	密碼: <input type="text" name="pw" value=""/> </br>
