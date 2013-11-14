@@ -8,11 +8,9 @@
 <c:set target="${prod }" property="id" value="${param.id }"></c:set>
 <%
 int qty = Integer.parseInt(request.getParameter("q"));
-Item item = new Item(prod.getId(), prod.getPrice(), qty);
+Item item = new Item(prod.getId(), prod.getName(), prod.getPrice(), qty);
 cart.getItems().add(item);
 %>
-
-
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -21,8 +19,17 @@ cart.getItems().add(item);
 <title>Insert title here</title>
 </head>
 <body>
-想放入購物車的品項:
-${prod.id }, ${prod.name }, ${prod.price }, ${param.q }, ${prod.price*param.q }
+<%=cart.getItems().size() %>
 
+想放入購物車的品項:
+<table>
+<tr>
+	<td>${prod.id }</td>
+	<td> ${prod.name }</td>
+	<td> ${prod.price }</td>
+	<td>${param.q }</td>
+	<td>${prod.price*param.q }</td>
+</tr>
+</table>
 </body>
 </html>
