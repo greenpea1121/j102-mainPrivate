@@ -1,0 +1,10 @@
+<dwr>
+  <allow>
+    <create creator="new" javascript="JDate">
+      <param name="class" value="java.util.Date"/>
+    </create>
+    <create creator="new" javascript="User">
+      <param name="class" value="com.tom.User"/>
+    </create>
+  </allow>
+</dwr>
