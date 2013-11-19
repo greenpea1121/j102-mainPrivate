@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+  <Resource name="jdbc/j102"
+  	type="javax.sql.DataSource"
+  	driverClassName="com.mysql.jdbc.Driver"
+  	maxIdle="5"
+  	maxWait="5000"
+  	username="jstu"
+  	password="abc123"
+  	url="jdbc:mysql://j.snpy.org/j102?characterEncoding=UTF-8"
+  />
+</Context>
