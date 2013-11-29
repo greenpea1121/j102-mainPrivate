@@ -21,6 +21,9 @@
 	<br/>
 	  E-mail:<input name="email" type="text" value="${m.email }"/> ${m.emailMessage }
 	<br/>
+	${CAP_WRONG }
+	<IMG SRC="stickyImg"/>
+	<input name = "answer" />
 	  <input type="submit" value="註冊"/>
 </form>
 

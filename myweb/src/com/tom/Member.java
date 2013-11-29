@@ -7,6 +7,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMessage.RecipientType;
 
 import com.mysql.jdbc.Driver;
 
@@ -109,17 +119,24 @@ public class Member {
 		}
 		if (valid){
 //			saveOld();
+			long vid = System.currentTimeMillis();
 			try {
 				DriverManager.registerDriver(new Driver());
 				Connection conn = DriverManager.getConnection(
 					"jdbc:mysql://j.snpy.org/j102", "jstu", "abc123");
-				String sql = "INSERT INTO users(id, nickname, password, email) values(?,?,?,?)";
+				String sql = "INSERT INTO users(id, nickname, password, email, vid) values(?,?,?,?, ?)";
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, userid);
 				pstmt.setString(2, nickname);
 				pstmt.setString(3, pw1);
 				pstmt.setString(4, email);
+				pstmt.setString(5, String.valueOf(vid));
 				int rowCount = pstmt.executeUpdate();
+				if (rowCount==1){
+					mailVerify(vid);
+				}
+				
+				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -127,6 +144,31 @@ public class Member {
 			
 		}
 		return valid;
+	}
+
+	private void mailVerify(long vid) {
+		Properties props = System.getProperties();
+		props.put("mail.host", "mail.pccu.edu.tw");
+		props.put("mail.transport.protocol", "smtp");
+		Session session = Session.getDefaultInstance(props);
+		try {
+			InternetAddress from = new InternetAddress("test@com.tw");
+			InternetAddress to = new InternetAddress(email);
+			MimeMessage msg = new MimeMessage(session);
+			String text = "<a href=\"http://localhost:8087/myweb/verify?vid="+vid+"\">按此驗證連結</a>";
+			msg.setContent(text, "text/html; charset=utf-8");
+
+			msg.setFrom(from);
+			msg.setRecipient(RecipientType.TO, to);
+			msg.setSubject("會員驗證信");
+			Transport.send(msg);
+		} catch (AddressException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private void saveOld() {
