@@ -66,22 +66,48 @@
   <listener>
     <listener-class>com.tom.UserVisitListener</listener-class>
   </listener>
-	<servlet>
-		<display-name>DWR Servlet</display-name>
-		<servlet-name>dwr-invoker</servlet-name>
-		<servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class>
-		<init-param>
-			<param-name>debug</param-name>
-			<param-value>true</param-value>
-		</init-param>
-		<init-param>
-         <param-name>crossDomainSessionSecurity</param-name>
-         <param-value>false</param-value>
-    	</init-param>
-	</servlet>
+  <servlet>
+    <display-name>DWR Servlet</display-name>
+    <servlet-name>dwr-invoker</servlet-name>
+    <servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class>
+    <init-param>
+      <param-name>debug</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>crossDomainSessionSecurity</param-name>
+      <param-value>false</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>dwr-invoker</servlet-name>
+    <url-pattern>/dwr/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>VerifyServlet</display-name>
+    <servlet-name>VerifyServlet</servlet-name>
+    <servlet-class>com.tom.VerifyServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>VerifyServlet</servlet-name>
+    <url-pattern>/verify</url-pattern>
+  </servlet-mapping>
+   <servlet>
+        <servlet-name>StickyCaptcha</servlet-name>
+        <servlet-class>nl.captcha.servlet.StickyCaptchaServlet</servlet-class>
+        <init-param>
+            <param-name>width</param-name>
+            <param-value>250</param-value>
+        </init-param>
+        <init-param>
+            <param-name>height</param-name>
+            <param-value>75</param-value>
+        </init-param>
+    </servlet>
 
-	<servlet-mapping>
-		<servlet-name>dwr-invoker</servlet-name>
-		<url-pattern>/dwr/*</url-pattern>
-	</servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StickyCaptcha</servlet-name>
+        <url-pattern>/stickyImg</url-pattern>
+    </servlet-mapping>
 </web-app>

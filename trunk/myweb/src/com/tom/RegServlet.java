@@ -6,11 +6,14 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import nl.captcha.Captcha;
 
 import com.mysql.jdbc.Driver;
 
@@ -39,6 +42,16 @@ public class RegServlet extends HttpServlet {
 		String pw1 = null;
 		String pw2 = null;
 		String email = null;
+		String answer = request.getParameter("answer");
+		request.getSession().removeAttribute("CAP_WRONG");
+		Captcha cap = (Captcha)request.getSession().getAttribute(Captcha.NAME);
+		if (!cap.isCorrect(answer)){
+			request.getSession().setAttribute("CAP_WRONG", "驗證碼錯誤");
+			RequestDispatcher disp = request.getRequestDispatcher("reg2.jsp");
+			disp.forward(request, response);
+			return;
+		}
+		
 		if (request.getParameter("userid")!=null){
 			userid = request.getParameter("userid");
 			String nickname = request.getParameter("nickname");
